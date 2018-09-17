@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+*{
+  font-family: 'Montserrat', sans-serif;
+}
+
+.tab-list {
+  border-bottom: 1px solid #65d5ae;
+  padding-left: 0;
+}
+
+.tab-list-item {
+  display: inline-block;
+  margin-bottom: -1px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+.tab-list-active {
+  background-color: white;
+  border: solid #5ad5c8;
+  background-color: rgba(90, 213, 200,0.4);
+  border-width: 1px 1px 0 1px;
+  border-radius: 5px 5px 0 0;
+}
+
+ul {
+  list-style: none;
+
+}
+ul.tabData {
+  columns: 6;
+  -webkit-columns: 6;
+  -moz-columns: 6;
+}
+
+li {
+  padding: 3px 0;
+}
