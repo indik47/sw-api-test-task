@@ -8,7 +8,7 @@ class Tab extends Component {
     };
 
     render() {
-        const { props: { activeTab, tabName, onClickTabItem}, } = this;
+        const { props: { activeTab, tabName, }, } = this;
 
         let className = 'tab-list-item';
 

@@ -6,7 +6,7 @@ const handleErrors = function (responce) {
 };
 
 const getNumberOfPages = function (entitiesType) {
-    return fetch(`https://swapi.co/api/${entitiesType}`)
+    return fetch(`https://swapi.co/api/${entitiesType}/`)
         .then(responce => responce.json())
         .then(json => {
             return Math.ceil( json.count / 10 );
@@ -51,4 +51,21 @@ const fetchEntities = function(entitiesType){
         });
 };
 
+const fetchUrls = function (urls) {
+    // if (!urls[0]) {return {name: "none"};}
+    const promises = [];
+     urls.forEach(url => {
+        promises.push( fetch(url)
+            .then (data => data.json())
+        )
+    });
+
+    return Promise.all(promises)
+        .then(data => {
+            console.log(data);
+            return data;
+        })
+}
+
 export default fetchEntities
+export {fetchUrls}
