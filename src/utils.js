@@ -1,3 +1,15 @@
+function sortEntitiesByName(entitiesArray) {
+    entitiesArray.sort(function(a, b){
+        let valueA = a.name || a.title;
+        let valueB = b.name || b.title;
+
+        if(valueA < valueB) return -1;
+        if(valueA > valueB) return 1;
+        return 0;
+    });
+    console.log("sorting done");
+}
+
 const handleErrors = function (responce) {
     if (!responce.ok) {
         throw Error(responce.status);
@@ -67,4 +79,4 @@ const fetchUrls = function (urls) {
 }
 
 export default fetchEntities
-export {fetchUrls}
+export {fetchUrls, sortEntitiesByName}

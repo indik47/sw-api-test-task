@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Tabs from './components/Tabs'
 import TabData from './components/TabData'
-import fetchEntities, {fetchUrls} from './utils'
+import fetchEntities, {fetchUrls, sortEntitiesByName} from './utils'
 import './App.css';
 
 class App extends Component {
     state = {
         activeTab: 'films',
         tabData: null,
+        isSorted: false,
+        searchValue: ``,
         details: null
     };
 
@@ -51,7 +53,8 @@ class App extends Component {
         this.setState({
             ...this.state,
             activeTab: tabName,
-            tabData: this.entitiesData[tabName]
+            tabData: this.entitiesData[tabName],
+            isSorted:false
         });
     };
 
@@ -65,12 +68,11 @@ class App extends Component {
         });
 
         data = data[0];
-
-        this.saturateDetails(data);
+        this.showSaturatedDetails(data);
 };
 
     //show detailed information for clicked entity
-    saturateDetails = (data) => {
+    showSaturatedDetails = (data) => {
         const dataSaturated = JSON.parse(JSON.stringify(data));
 
         //display details tab immediately
@@ -81,7 +83,6 @@ class App extends Component {
         });
 
         // fetch additional data for displayed entity details
-
         for (let key in dataSaturated) {
             const value = dataSaturated[key];
 
@@ -100,22 +101,60 @@ class App extends Component {
                                 details: dataSaturated
                             });
                         }
-                        })
+                    })
             }
         }
     };
 
+    onSearchInput = (event) => {
+        const type = this.state.activeTab;
+        const data = this.entitiesData[type];
+
+      let input = event.target.value;
+
+        if (input) {
+            input = input.toLowerCase();
+            let filteredData = data.filter(item => {
+                return (item.name || item.title).toLowerCase().includes(input);
+            });
+            this.setState({
+                ...this.state,
+                tabData: filteredData,
+                searchValue: input
+            })
+        } else {
+            this.setState({
+                ...this.state,
+                tabData: data,
+                searchValue: input
+            })
+        }
+    };
+
+    onSortClick = () => {
+        let isSorted = this.state.isSorted;
+
+        if (isSorted) return;
+
+        const dataCopy = JSON.parse(JSON.stringify(this.state.tabData));
+
+        sortEntitiesByName(dataCopy);
+        this.setState({
+            ...this.state,
+            tabData: dataCopy,
+            isSorted: true
+        })
+    };
 
     render() {
-        const {activeTab, tabData, details} = this.state;
-        const {entitiesTypes: mainTabs, otherTabs, onTabClick, onDataClick, saturateDetails} = this;
+        const {activeTab, tabData, details, isSorted} = this.state;
+        const {entitiesTypes: mainTabs, otherTabs, onTabClick, onDataClick, showSaturatedDetails, onSearchInput, onSortClick} = this;
 
         return (
             <div className="App">
-
                 <Tabs activeTab={activeTab} mainTabs={mainTabs} otherTabs={otherTabs} onTabClick={onTabClick}/>
-                <TabData activeTab={activeTab} data={tabData} details={details} onDataClick={onDataClick} saturateDetails={saturateDetails}/>
-
+                <TabData activeTab={activeTab} data={tabData} isSorted={isSorted} details={details}
+                         onDataClick={onDataClick} saturateDetails={showSaturatedDetails} onSearchInput={onSearchInput} onSortClick={onSortClick}/>
             </div>
         );
     }

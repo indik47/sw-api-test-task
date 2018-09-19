@@ -2,10 +2,14 @@
 
 *{
   font-family: 'Montserrat', sans-serif;
+  --main-color: rgba(249, 215, 48, 1);
+  --main-color-dark: rgba(247, 192, 25, 0.8);
+  --main-color-transp: rgba(247, 192, 25, 0.4);
+  --complementary-color: rgba(90, 213, 200,0.4);
 }
 
 .tab-list {
-  border-bottom: 2px solid rgba(90, 213, 200,0.4);
+  border-bottom: 2px solid var(--main-color-transp);
   padding-left: 0;
 }
 
@@ -22,13 +26,9 @@
 }
 
 .tab-list-active {
-  /*background-color: white;*/
-  /*border: solid #5ad5c8;*/
   border: none;
-  background-color: rgba(90, 213, 200, 0.4);
+  background-color: var(--main-color-transp);
   border-width: 0px
-          /*1px 1px 0 1px;*/
-  /*border-radius: 5px 5px 0 0;*/
 }
 
 .search__label {
@@ -41,14 +41,15 @@ input#search {
   margin: auto;
   box-sizing: border-box;
   border: none;
-  background-color: rgba(90, 213, 200,0.4);
+  background-color: var(--main-color-transp);
   border-radius: 4px;
 }
 
 button#sort {
   margin: 0 40px;
   padding: 7px 20px;
-  background: rgba(90, 213, 200,0.4);
+  width: 100px;
+  background: var(--main-color-transp);
   border: none;
   border-radius: 4px;
   font-size: 16px;
@@ -90,4 +91,30 @@ li.details{
 .sweet-loading {
   display: inline-block;
   margin-left: 20px;
+}
+
+.details{
+  position: relative;
+}
+
+.details span {
+  color: rgba(0, 0, 0, 0.6);
+  margin: 0 3px;
+}
+
+.details span:hover {
+  color: rgba(70, 167, 157, 1);
+}
+
+.details span:after {
+  content: "•";
+  position: relative;
+  right: -3px;
+  top: 2px;
+  font-size: 24px;
+  color: rgba(90, 213, 200, 1);
+}
+
+.details span.sweet-loading:after {
+  content: "";
 }

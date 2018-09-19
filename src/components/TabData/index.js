@@ -5,15 +5,17 @@ import Details from '../Details';
 
 class TabData extends Component {
     static propTypes = {
-        activeTab: PropTypes.string,
-        data:  PropTypes.instanceOf(Array),
+        activeTab: PropTypes.string.isRequired,
+        data: PropTypes.instanceOf(Array),
+        isSorted: PropTypes.bool.isRequired,
         details: PropTypes.instanceOf(Object) || PropTypes.instanceOf(Array),
         onDataClick: PropTypes.func.isRequired,
-        saturateDetails: PropTypes.func.isRequired
+        saturateDetails: PropTypes.func.isRequired,
+        onSearchInput: PropTypes.func.isRequired,
+        onSortClick: PropTypes.func.isRequired,
     };
 
     onEntitiesClick(e, type) {
-        e.preventDefault();
         const {onDataClick} = this.props;
         const clickedEntity = e.target.innerText;
 
@@ -21,12 +23,12 @@ class TabData extends Component {
     }
 
     render() {
-        const {activeTab, data, details, onDataClick, saturateDetails} = this.props;
-
-        //details tab
-        if ( activeTab === 'details') {
-            return <Details activeTab={activeTab} details={details} onDataClick={onDataClick} saturateDetails={saturateDetails}/>
-        }
+        const {activeTab, data, isSorted, details, onDataClick, saturateDetails, onSearchInput, onSortClick} = this.props;
+        //
+        // //details tab
+        // if ( activeTab === 'details') {
+        //     return <Details activeTab={activeTab} details={details} onDataClick={onDataClick} saturateDetails={saturateDetails}/>
+        // }
 
         //spinner
         if (!data) {
@@ -47,14 +49,22 @@ class TabData extends Component {
             return (
                 <React.Fragment>
                     <label className='search__label' for="search">Search</label>
-                    <input id='search' type="text"/>
+                    <input id='search' type="text" onChange={(e) => onSearchInput(e)}/>
                     <ul className="tabData" onClick={(e) => this.onEntitiesClick(e, activeTab)}>
                         {data.map( (item,index) => {
                             const value = item.name || item.title;
                             return <li key={index}>{value}</li>
                         })}
                     </ul>
-                    <button id='sort'>sort</button>
+                    <button id='sort' onClick={onSortClick}> {isSorted ? `Unsort` : `Sort`} </button>
+
+                    {/*//details tab*/}
+                    {/*if ( activeTab === 'details')*/}
+                    {(activeTab === 'details') ?
+                    // {
+                    <Details activeTab={activeTab} details={details} onDataClick={onDataClick} saturateDetails={saturateDetails}/>
+                    // }
+                    : <div/>}
                 </React.Fragment>
             )
         }
