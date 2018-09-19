@@ -5,7 +5,7 @@
 }
 
 .tab-list {
-  border-bottom: 1px solid #65d5ae;
+  border-bottom: 2px solid rgba(90, 213, 200,0.4);
   padding-left: 0;
 }
 
@@ -14,14 +14,49 @@
   margin-bottom: -1px;
   padding: 0.5rem 0.75rem;
   cursor: pointer;
+  border-radius: 5px 5px 0 0;
+}
+
+.tab-list-item:hover {
+  background: rgba(70, 167, 157, 0.5);
 }
 
 .tab-list-active {
-  background-color: white;
-  border: solid #5ad5c8;
+  /*background-color: white;*/
+  /*border: solid #5ad5c8;*/
+  border: none;
+  background-color: rgba(90, 213, 200, 0.4);
+  border-width: 0px
+          /*1px 1px 0 1px;*/
+  /*border-radius: 5px 5px 0 0;*/
+}
+
+.search__label {
+  padding: 0 40px;
+}
+
+input#search {
+  width: 80vw;
+  padding: 12px 20px;
+  margin: auto;
+  box-sizing: border-box;
+  border: none;
   background-color: rgba(90, 213, 200,0.4);
-  border-width: 1px 1px 0 1px;
-  border-radius: 5px 5px 0 0;
+  border-radius: 4px;
+}
+
+button#sort {
+  margin: 0 40px;
+  padding: 7px 20px;
+  background: rgba(90, 213, 200,0.4);
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: 0.2s ease-in-out;
+}
+
+button#sort:hover{
+  background: rgba(70, 167, 157, 0.5);
 }
 
 ul {
@@ -39,7 +74,13 @@ ul.tabData {
 }
 
 ul.tabData li {
-cursor: pointer;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+
+}
+
+ul.tabData li:hover {
+ color: rgba(70, 167, 157, 1);
 }
 
 li.details{

@@ -13,11 +13,9 @@ class TabData extends Component {
     };
 
     onEntitiesClick(e, type) {
+        e.preventDefault();
         const {onDataClick} = this.props;
         const clickedEntity = e.target.innerText;
-
-        console.log(type)
-        console.log(clickedEntity)
 
         onDataClick(clickedEntity, type);
     }
@@ -25,9 +23,9 @@ class TabData extends Component {
     render() {
         const {activeTab, data, details, onDataClick, saturateDetails} = this.props;
 
-        //for details tab
+        //details tab
         if ( activeTab === 'details') {
-            return <Details entitiesType={activeTab} details={details} onDataClick={onDataClick} saturateDetails={saturateDetails}/>
+            return <Details activeTab={activeTab} details={details} onDataClick={onDataClick} saturateDetails={saturateDetails}/>
         }
 
         //spinner
@@ -44,15 +42,20 @@ class TabData extends Component {
                 </div>);
         }
 
-        //for entities list
+        //entities list
         if (data instanceof Array){
             return (
-                <ul className="tabData" onClick={(e) => this.onEntitiesClick(e, activeTab)}>
-                    {data.map( (item,index) => {
-                        const value = item.name || item.title;
-                        return <li key={index}>{value}</li>
-                    })}
-                </ul>
+                <React.Fragment>
+                    <label className='search__label' for="search">Search</label>
+                    <input id='search' type="text"/>
+                    <ul className="tabData" onClick={(e) => this.onEntitiesClick(e, activeTab)}>
+                        {data.map( (item,index) => {
+                            const value = item.name || item.title;
+                            return <li key={index}>{value}</li>
+                        })}
+                    </ul>
+                    <button id='sort'>sort</button>
+                </React.Fragment>
             )
         }
     }

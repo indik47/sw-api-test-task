@@ -37,7 +37,6 @@ class App extends Component {
             })
     }
 
-
     //change tab and render its info
     onTabClick = (event) => {
         const tabName = event.target.innerText;
@@ -57,9 +56,9 @@ class App extends Component {
     };
 
     onDataClick = (clickedEntity, type) => {
-        // const tabName = this.state.activeTab; //TODO remove
         const entitiesData = this.entitiesData[type];
 
+        //get details data from array of fetched data
         let data = entitiesData.filter(item => {
             const name = item.title || item.name;
             return (name === clickedEntity)
@@ -68,36 +67,39 @@ class App extends Component {
         data = data[0];
 
         this.saturateDetails(data);
-    };
+};
 
     //show detailed information for clicked entity
     saturateDetails = (data) => {
-        // const data = this.processDataClick(clickedEntity, type);
+        const dataSaturated = JSON.parse(JSON.stringify(data));
 
-        //display details tab immediatly
+        //display details tab immediately
         this.setState({
             ...this.state,
             activeTab: 'details',
-            details: data
+            details: dataSaturated
         });
 
         // fetch additional data for displayed entity details
-        const dataSaturated = JSON.parse(JSON.stringify(data));
+
         for (let key in dataSaturated) {
             const value = dataSaturated[key];
 
-            if ( value instanceof Array) {
+            if (value instanceof Array) {
                 fetchUrls(value)
                     .then(data => {
                         //saturate original details with fetched data
                         dataSaturated[key] = data;
 
-                        //set new stated with saturated data
-                        this.setState({
-                            ...this.state,
-                            activeTab: 'details',
-                            details: dataSaturated
-                        });
+                        //check if user haven`t left the page
+                        if (dataSaturated.url === this.state.details.url) {
+                            //set new state with saturated data
+                            this.setState({
+                                ...this.state,
+                                activeTab: 'details',
+                                details: dataSaturated
+                            });
+                        }
                         })
             }
         }

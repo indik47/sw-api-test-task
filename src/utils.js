@@ -35,7 +35,6 @@ const resolvePromises = function (promises) {
             responces.forEach(responce => {
                 entities = [...entities, ...responce.results];
             });
-            /*   console.log(entities);  */
             return entities;
         })
         .catch(error => {
