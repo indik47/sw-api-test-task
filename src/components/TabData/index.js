@@ -15,11 +15,10 @@ class TabData extends Component {
         onSortClick: PropTypes.func.isRequired,
     };
 
-    onEntitiesClick(e, type) {
+    onEntitiesClick(e) {
         const {onDataClick} = this.props;
         const clickedEntity = e.target.innerText;
-
-        onDataClick(clickedEntity, type);
+        onDataClick(clickedEntity);
     }
 
     render() {
@@ -47,25 +46,32 @@ class TabData extends Component {
         //entities list
         if (data instanceof Array){
             return (
-                <React.Fragment>
-                    <label className='search__label' for="search">Search</label>
-                    <input id='search' type="text" onChange={(e) => onSearchInput(e)}/>
-                    <ul className="tabData" onClick={(e) => this.onEntitiesClick(e, activeTab)}>
-                        {data.map( (item,index) => {
-                            const value = item.name || item.title;
-                            return <li key={index}>{value}</li>
-                        })}
-                    </ul>
-                    <button id='sort' onClick={onSortClick}> {isSorted ? `Unsort` : `Sort`} </button>
+                <div className="app-outer">
+                    <div className="entities-container">
+                        <div className='utils'>
+                            <input id='search' type="text" placeholder="Search.." onChange={(e) => onSearchInput(e)}/>
+                            <button id='sort' disabled={isSorted} onClick={(e) => onSortClick(e)}>Sort</button>
+                        </div>
+                        <ul className="tabData" onClick={(e) => this.onEntitiesClick(e)}>
+                            {data.map( (item,index) => {
+                                const value = item.name || item.title;
+                                return <li key={index}>{value}</li>
+                            })}
+                        </ul>
+                        </div>
+                        {/*//details tab*/}
+                        {/*if ( activeTab === 'details')*/}
+                    <div className="details-container">
 
-                    {/*//details tab*/}
-                    {/*if ( activeTab === 'details')*/}
-                    {(activeTab === 'details') ?
-                    // {
-                    <Details activeTab={activeTab} details={details} onDataClick={onDataClick} saturateDetails={saturateDetails}/>
-                    // }
-                    : <div/>}
-                </React.Fragment>
+                        {(activeTab === 'details') ?
+                        // {
+                        <Details activeTab={activeTab} details={details} onDataClick={onDataClick} saturateDetails={saturateDetails}/>
+                        // }
+                        : <div/>
+                                }
+                    </div>
+
+                </div>
             )
         }
     }

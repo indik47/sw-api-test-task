@@ -9,8 +9,8 @@ class App extends Component {
         activeTab: 'films',
         tabData: null,
         isSorted: false,
-        searchValue: ``,
-        details: null
+        details: null,
+        type: 'films'
     };
 
     entitiesTypes = ['films', 'planets', 'vehicles', 'people', 'species', 'starships'];
@@ -54,12 +54,13 @@ class App extends Component {
             ...this.state,
             activeTab: tabName,
             tabData: this.entitiesData[tabName],
+            type: tabName,
             isSorted:false
         });
     };
 
-    onDataClick = (clickedEntity, type) => {
-        const entitiesData = this.entitiesData[type];
+    onDataClick = (clickedEntity) => {
+        const entitiesData = this.entitiesData[this.state.type];
 
         //get details data from array of fetched data
         let data = entitiesData.filter(item => {
@@ -107,10 +108,10 @@ class App extends Component {
     };
 
     onSearchInput = (event) => {
-        const type = this.state.activeTab;
+        const type = this.state.type;
         const data = this.entitiesData[type];
 
-      let input = event.target.value;
+        let input = event.target.value;
 
         if (input) {
             input = input.toLowerCase();
@@ -120,21 +121,24 @@ class App extends Component {
             this.setState({
                 ...this.state,
                 tabData: filteredData,
-                searchValue: input
+                isSorted: false
             })
+
         } else {
             this.setState({
                 ...this.state,
                 tabData: data,
-                searchValue: input
+                isSorted: false
             })
         }
     };
 
-    onSortClick = () => {
+    onSortClick = (e) => {
         let isSorted = this.state.isSorted;
+        if (isSorted) {
 
-        if (isSorted) return;
+            return;
+        }
 
         const dataCopy = JSON.parse(JSON.stringify(this.state.tabData));
 
