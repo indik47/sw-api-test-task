@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MoonLoader from 'react-spinners/MoonLoader';
+import Spinner from "../Spinner";
 import PropTypes from 'prop-types';
 import Details from '../Details';
 
@@ -18,29 +18,18 @@ class TabData extends Component {
     onEntitiesClick(e) {
         const {onDataClick} = this.props;
         const clickedEntity = e.target.innerText;
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         onDataClick(clickedEntity);
     }
 
     render() {
         const {activeTab, data, isSorted, details, onDataClick, saturateDetails, onSearchInput, onSortClick} = this.props;
-        //
-        // //details tab
-        // if ( activeTab === 'details') {
-        //     return <Details activeTab={activeTab} details={details} onDataClick={onDataClick} saturateDetails={saturateDetails}/>
-        // }
 
-        //spinner
         if (!data) {
             return (
-                <div className='sweet-loading'>
-                    <MoonLoader
-                        className='spinner'
-                        sizeUnit={"px"}
-                        size={50}
-                        color={'#65d5ae'}
-                        loading={true}
-                    />
-                </div>);
+                <Spinner size={'big'}/>
+            )
         }
 
         //entities list
@@ -59,14 +48,10 @@ class TabData extends Component {
                             })}
                         </ul>
                         </div>
-                        {/*//details tab*/}
-                        {/*if ( activeTab === 'details')*/}
-                    <div className="details-container">
 
+                    <div className="details-container">
                         {(activeTab === 'details') ?
-                        // {
                         <Details activeTab={activeTab} details={details} onDataClick={onDataClick} saturateDetails={saturateDetails}/>
-                        // }
                         : <div/>
                                 }
                     </div>
@@ -76,4 +61,5 @@ class TabData extends Component {
         }
     }
 }
+
 export default TabData

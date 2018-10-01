@@ -1,39 +1,99 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+@import url('https://fonts.googleapis.com/css?family=Bai+Jamjuree');
+
+@font-face {
+  font-family: 'StarJedi';
+  src: url('./fonts/Starjedi.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'StarJediHollow';
+  src: url('./fonts/Starjhol.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'StarJediOutline';
+  src: url('./fonts/Starjout.ttf') format('truetype');
+}
 
 *{
-  /*box-sizing: border-box;*/
-  font-family: 'Montserrat', sans-serif;
-  --main-color: rgba(249, 215, 48, 1);
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 14px;
+
+  --main-color: rgba(245, 211, 101, 1);
+  --main-color-dark: rgba(0, 0, 0, 0.7);
+  --main-text-color: rgba(237, 234, 235, 1);
+  --secondary-text-color: rgba(161, 155, 146, 0.9);
   --inactive-color-dark: rgba(170, 189, 181, 0.6);
-  --main-color-transp: rgba(247, 192, 25, 0.4);
-  --complementary-color: rgba(90, 213, 200,0.4);
+  --main-color-vivid: rgb(245, 205, 58);
+  --complementary-color: rgba(90, 213, 200, 0.7);
+  --background-color: rgb(85, 94, 95);
+
+  background-color: #495152;
+  color: var(--main-text-color);
 }
+
+i {
+    background-color: transparent;
+    margin-right: 10px;
+    color: var(--complementary-color);
+}
+
 .app-outer{
   display: flex;
 }
 
-.entities-container{
-  display: inline-block;
-  width: 20vw;
-
+header *{
+    margin: 0;
+    font-family: 'StarJedi', sans-serif;
+    font-size: 25px;
 }
+
+.header-inner {
+    padding: 2% 3%;
+    display: flex;
+    align-items: center;
+}
+
+.header-inner  i{
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.header-inner  h1 span{
+    margin: 0 10px;
+}
+
+.entities-container {
+    display: inline-block;
+    width: 20vw;
+    padding: 1% 3%;
+}
+
 .details-container{
   display: inline-block;
-  width: 60vw;
+  width: 70vw;
+}
+
+.tabs {
+    padding: 1% 3%;
 }
 
 .tab-list {
-  border-bottom: 2px solid var(--main-color-transp);
-  padding-left: 0;
-  margin: 30px 30px;
+  padding: 0;
+    margin: 0;
+  /*margin: 15px 30px;*/
 }
 
 .tab-list-item {
+  border-bottom: 2px solid var(--main-color-vivid);
+  font-family: 'StarJedi', sans-serif;
+  font-size: 18px;
+  color: var(--main-color);
   display: inline-block;
-  margin-bottom: -1px;
   padding: 0.5rem 0.75rem;
   cursor: pointer;
-  border-radius: 5px 5px 0 0;
+  border-radius: 10px 10px 0 0;
+  transition: 0.2s ease-in-out;
 }
 
 .tab-list li:last-child{
@@ -41,46 +101,74 @@
 }
 
 .tab-list-item:hover {
-  background: rgba(70, 167, 157, 0.5);
+  background: var(--inactive-color-dark);
+}
+
+.visited{
+    background-color: var(--background-color);
 }
 
 .tab-list-active {
-  border: none;
-  background-color: var(--main-color-transp);
-  border-width: 0px
+  /*border: none;*/
+  background-color: var(--main-color);
+  color: var(--main-color-dark);
+  /*border-width: 0px;*/
+}
+
+.tab-list-active:hover {
+  background-color: var(--main-color);
 }
 
 input#search {
   width: 80%;
   height: 40px;
-  margin: 10px 10%;
+  margin: 6px 0;
   padding: 12px 20px;
   font-size: 16px;
   box-sizing: border-box;
   border: none;
-  background-color: var(--main-color-transp);
-  border-radius: 4px;
+  background-color: var(--main-text-color);
+  color: var(--main-color-dark);
+  border-radius: 10px;
+  text-align: center;
 }
 
 button#sort {
-  width: 80%;
+  cursor: pointer;
   height: 40px;
-  margin: 0 10%;
+  margin: 2% 0;
   padding: 7px 20px;
-  background: var(--main-color-transp);
+  background: var(--main-color);
+  color: var(--main-color-dark);
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 16px;
   transition: 0.2s ease-in-out;
 }
 
+ul.tabData {
+    margin: 0;
+    padding: 7px 0px;
+}
+
+ul.tabData li {
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+ul.tabData li:hover {
+    color: var(--main-color-vivid);
+}
+
 button#sort:hover{
-  background: var(--complementary-color);
+  background: var(--main-color-vivid);
+
 }
 
 button#sort:disabled{
   background:var(--inactive-color-dark);
 }
+
 button#sort:disabled:hover{
   background: var(--inactive-color-dark);
 }
@@ -93,20 +181,7 @@ li {
   padding: 3px 0;
 }
 
-ul.tabData {
-  margin: 0 10%;
-  padding: 7px 20px;
-}
 
-ul.tabData li {
-  cursor: pointer;
-  transition: 0.2s ease-in-out;
-
-}
-
-ul.tabData li:hover {
- color: rgba(70, 167, 157, 1);
-}
 
 li.details{
   cursor: pointer;
@@ -121,21 +196,30 @@ li.details{
   position: relative;
 }
 
-.details span {
-  color: rgba(0, 0, 0, 0.6);
-  margin: 0 3px;
+.details-container li b {
+  color: var(--complementary-color);
+  cursor: default;
 }
 
-.details span:hover {
-  color: rgba(70, 167, 157, 1);
+li a{
+  text-decoration: none;
+}
+
+.details span, li a {
+  margin: 0 3px;
+  transition: 0.1s ease-in-out;
+}
+
+.details span:hover, li a:hover {
+  color: var(--main-color);
 }
 
 .details span:after {
   content: "•";
   position: relative;
   right: -3px;
-  top: 2px;
-  font-size: 24px;
+  top: 1px;
+  font-size: 18px;
   color: rgba(90, 213, 200, 1);
 }
 

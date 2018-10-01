@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import Header from './components/Header'
 import Tabs from './components/Tabs'
 import TabData from './components/TabData'
 import fetchEntities, {fetchUrls, sortEntitiesByName} from './utils'
-import './App.css';
+import './App.css'
 
 class App extends Component {
     state = {
@@ -10,7 +11,8 @@ class App extends Component {
         tabData: null,
         isSorted: false,
         details: null,
-        type: 'films'
+        type: 'films',
+        visitedTabs: ['films'],
     };
 
     entitiesTypes = ['films', 'planets', 'vehicles', 'people', 'species', 'starships'];
@@ -25,9 +27,10 @@ class App extends Component {
     fetchData(entities) {
         fetchEntities(entities)
             .then(fetchedData => {
-                //write fetched data into class variable
+
+                //put fetched data into variable
                 this.entitiesData[entities] = fetchedData;
-                console.log (this.entitiesData); //TODO remove console.log
+
                 //check if current active tab wasn`t changed (matches entities that were fetched)
                 if (entities === this.state.activeTab) {
                     this.setState({
@@ -49,13 +52,18 @@ class App extends Component {
             this.fetchData(tabName);
         }
 
+        //add clicked tab to visited tabs (add className when re-rendered)
+        let visitedTabs = this.state.visitedTabs;
+        if( !visitedTabs.includes(tabName) ) { visitedTabs.push(tabName); }
+
         //set activeTab and tabData for clicked tab
         this.setState({
             ...this.state,
             activeTab: tabName,
             tabData: this.entitiesData[tabName],
             type: tabName,
-            isSorted:false
+            isSorted:false,
+            visitedTabs: visitedTabs,
         });
     };
 
@@ -83,7 +91,7 @@ class App extends Component {
             details: dataSaturated
         });
 
-        // fetch additional data for displayed entity details
+        // fetch additional data for entity details
         for (let key in dataSaturated) {
             const value = dataSaturated[key];
 
@@ -136,7 +144,6 @@ class App extends Component {
     onSortClick = (e) => {
         let isSorted = this.state.isSorted;
         if (isSorted) {
-
             return;
         }
 
@@ -151,14 +158,27 @@ class App extends Component {
     };
 
     render() {
-        const {activeTab, tabData, details, isSorted} = this.state;
+        const {activeTab, tabData, details, isSorted, type, visitedTabs} = this.state;
         const {entitiesTypes: mainTabs, otherTabs, onTabClick, onDataClick, showSaturatedDetails, onSearchInput, onSortClick} = this;
 
         return (
             <div className="App">
-                <Tabs activeTab={activeTab} mainTabs={mainTabs} otherTabs={otherTabs} onTabClick={onTabClick}/>
-                <TabData activeTab={activeTab} data={tabData} isSorted={isSorted} details={details}
-                         onDataClick={onDataClick} saturateDetails={showSaturatedDetails} onSearchInput={onSearchInput} onSortClick={onSortClick}/>
+                <Header/>
+                <Tabs activeTab={activeTab}
+                      type={type}
+                      mainTabs={mainTabs}
+                      otherTabs={otherTabs}
+                      onTabClick={onTabClick}
+                      visitedTabs={visitedTabs}
+                />
+                <TabData activeTab={activeTab}
+                      data={tabData}
+                      isSorted={isSorted}
+                      details={details}
+                      onDataClick={onDataClick}
+                      saturateDetails={showSaturatedDetails}
+                      onSearchInput={onSearchInput}
+                      onSortClick={onSortClick}/>
             </div>
         );
     }
