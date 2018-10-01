@@ -1,23 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import '../../fonts/starwars-glyphicons/css/starwars-glyphicons.css'
+
 
 class Tab extends Component {
     static propTypes = {
-        activeTab: PropTypes.string.isRequired,
         tabName: PropTypes.string.isRequired,
+        type: PropTypes.string,
+        visitedTabs: PropTypes.instanceOf(Array),
     };
 
     render() {
-        const { props: { activeTab, tabName, }, } = this;
+        const { tabName, type, visitedTabs, icon } = this.props;
 
         let className = 'tab-list-item';
 
-        if (activeTab === tabName) {
+        if (type === tabName) {
             className += ' tab-list-active';
         }
 
+        if (visitedTabs.includes(tabName)) {
+            className += ' visited';
+        }
+
         return (
-            <li className={className} >
+            <li className={className}>
+                <i className={icon}/>
                 {tabName}
             </li>
         );

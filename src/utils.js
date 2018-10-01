@@ -63,7 +63,6 @@ const fetchEntities = function(entitiesType){
 };
 
 const fetchUrls = function (urls) {
-    // if (!urls[0]) {return {name: "none"};}
     const promises = [];
      urls.forEach(url => {
         promises.push( fetch(url)
@@ -73,10 +72,23 @@ const fetchUrls = function (urls) {
 
     return Promise.all(promises)
         .then(data => {
-            console.log(data);
             return data;
         })
-}
+};
+
+
+const beautifyKeyStr = function (inputStr) {
+    const upperCaseStr = inputStr.charAt(0).toUpperCase() + inputStr.substr(1);
+    return upperCaseStr.split('_').join(' ');
+};
+
+const beautifyTimeStr = function (inputStr) {
+    const timeData = inputStr.split('T');
+
+    timeData[1] = timeData[1].slice(0,8);
+    return timeData.join(' ');
+};
+
 
 export default fetchEntities
-export {fetchUrls, sortEntitiesByName}
+export {fetchUrls, sortEntitiesByName, beautifyKeyStr, beautifyTimeStr}
