@@ -1,10 +1,11 @@
 {
-  "main.css": "static/css/main.9d441f8e.css",
-  "main.css.map": "static/css/main.9d441f8e.css.map",
-  "main.js": "static/js/main.d3f0cd0f.js",
-  "main.js.map": "static/js/main.d3f0cd0f.js.map",
+  "main.css": "static/css/main.25c28d06.css",
+  "main.css.map": "static/css/main.25c28d06.css.map",
+  "main.js": "static/js/main.64add0a8.js",
+  "main.js.map": "static/js/main.64add0a8.js.map",
   "static\\media\\Starjedi.ttf": "static/media/Starjedi.cc3019aa.ttf",
   "static\\media\\Starjhol.ttf": "static/media/Starjhol.9c91297e.ttf",
   "static\\media\\Starjout.ttf": "static/media/Starjout.f72f509a.ttf",
-  "static\\media\\starwars-glyphicons-webfont.ttf": "static/media/starwars-glyphicons-webfont.7eb176e2.ttf"
+  "static\\media\\starwars-glyphicons-webfont.ttf": "static/media/starwars-glyphicons-webfont.7eb176e2.ttf",
+  "static\\media\\sw-header.png": "static/media/sw-header.0c1b4094.png"
 }
