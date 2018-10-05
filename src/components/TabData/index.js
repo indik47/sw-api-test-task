@@ -27,16 +27,13 @@ class TabData extends Component {
     }
 
     render() {
-        const {activeTab, data, details, onDataClick, saturateDetails, closeDetails} = this.props;
+        const {activeTab, data, details, onDataClick, saturateDetails, closeDetails, isSorted, onSearchInput, onSortClick} = this.props;
 
         let entitiesClassName = classNames('entities-container', { [`full-width`]: activeTab !== 'details' });
         let detailsClassName = classNames('details-container', { [`full-width`]: activeTab === 'details' });
 
         //spinner while fetching data
         if (!data) { return <Spinner size={'big'}/> }
-
-        // //entities list
-        // if (!(data instanceof Array)) { return null; }
 
         const TabDataItems = () => {
             const { data } = this.props;
@@ -50,21 +47,16 @@ class TabData extends Component {
                 </ul>
             )
         };
-        const Utils = () => {
-            const { isSorted, onSearchInput, onSortClick } = this.props;
-
-            return (
-                <div className='utils'>
-                    <input id='search' type="text" placeholder="Search.." onChange={(e) => onSearchInput(e)}/>
-                    <button id='sort' disabled={isSorted} onClick={(e) => onSortClick(e)}>Sort</button>
-                </div>
-            )
-        }
 
         return (
             <div className="main-inner">
                 <div className={entitiesClassName}>
-                    <Utils/>
+
+                  <div className='utils'>
+                    <input id='search' type="text" placeholder="Search.." onChange={(e) => onSearchInput(e)}/>
+                    <button id='sort' disabled={isSorted} onClick={(e) => onSortClick(e)}>Sort</button>
+                  </div>
+
                     <TabDataItems/>
                 </div>
 
