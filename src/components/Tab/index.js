@@ -11,7 +11,7 @@ class Tab extends Component {
     };
 
     render() {
-        const { tabName, type, visitedTabs, icon } = this.props;
+        const { tabName, type, visitedTabs, icon, onTabClick } = this.props;
 
         let className = 'tab-list-item';
 
@@ -24,7 +24,7 @@ class Tab extends Component {
         }
 
         return (
-            <li className={className}>
+            <li className={className} onClick={(e) => onTabClick(e)}>
                 <i className={icon}/>
                 {tabName}
             </li>

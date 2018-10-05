@@ -1,0 +1,39 @@
+footer {
+    height: 50px;
+}
+
+footer * {
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.footer-inner {
+    display: flex;
+    align-items: end;
+
+    height: 100%;
+    background: linear-gradient(to bottom, transparent , var(--complementary-color-transp) );
+}
+
+.footer-inner:first-child {
+    padding-left: 15px;
+}
+
+.footer-inner * {
+    margin-top: 25px;
+    margin-left: 5px;
+}
+
+.footer-inner a {
+    padding: 0 5px;
+    text-decoration: none;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, transparent , var(--complementary-color) );
+
+}
+
+@media (max-width:640px){
+    .footer-push {
+        height: 50px;
+    }
+}

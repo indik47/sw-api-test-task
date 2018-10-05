@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MoonLoader from 'react-spinners/MoonLoader';
 import PulseLoader from 'react-spinners/PulseLoader';
+import './styles.css'
 
 class Spinner extends Component {
     render() {
@@ -9,26 +10,26 @@ class Spinner extends Component {
         switch (size) {
             case 'big':
                 return (
-                    <span className='sweet-loading'>
+                    <span className='sweet-loading centered'>
                         <MoonLoader className='spinner'
                                     sizeUnit={"px"}
-                                    size={50}
+                                    size={100}
                                     color={'#65d5ae'}
                                     loading={true}/>
                     </span>
                 );
-                break;
             case 'small':
                 return (
-                    <span className='sweet-loading'>
+                    <div className='sweet-loading'>
                         <PulseLoader className='spinner'
                                     sizeUnit={"px"}
                                     size={3}
                                     color={'#65d5ae'}
                                     margin={'5px'}
                                     loading={true}/>
-                    </span>
+                    </div>
                 );
+            default:
                 break;
         }
 

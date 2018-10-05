@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Header from './components/Header'
+import Footer from './components/Footer'
 import Tabs from './components/Tabs'
 import TabData from './components/TabData'
 import fetchEntities, {fetchUrls, sortEntitiesByName} from './utils'
@@ -44,7 +45,7 @@ class App extends Component {
 
     //change tab and render its info
     onTabClick = (event) => {
-        const tabName = event.target.innerText;
+        const tabName = event.currentTarget.innerText;
         const entitiesTypes = this.entitiesTypes;
 
         //fetch if data is not fetched already and tab is one of entities
@@ -93,7 +94,9 @@ class App extends Component {
 
         // fetch additional data for entity details
         for (let key in dataSaturated) {
-            const value = dataSaturated[key];
+            let value = dataSaturated[key];
+
+            if (key === 'homeworld') { value = [value]; }
 
             if (value instanceof Array) {
                 fetchUrls(value)
@@ -106,7 +109,7 @@ class App extends Component {
                             //set new state with saturated data
                             this.setState({
                                 ...this.state,
-                                activeTab: 'details',
+                                // activeTab: 'details',
                                 details: dataSaturated
                             });
                         }
@@ -141,7 +144,7 @@ class App extends Component {
         }
     };
 
-    onSortClick = (e) => {
+    onSortClick = () => {
         let isSorted = this.state.isSorted;
         if (isSorted) {
             return;
@@ -157,28 +160,42 @@ class App extends Component {
         })
     };
 
+    closeDetails = () => {
+        this.setState({
+            ...this.state,
+            activeTab: this.state.type,
+        })
+    }
+
     render() {
         const {activeTab, tabData, details, isSorted, type, visitedTabs} = this.state;
-        const {entitiesTypes: mainTabs, otherTabs, onTabClick, onDataClick, showSaturatedDetails, onSearchInput, onSortClick} = this;
+        const {entitiesTypes: mainTabs, otherTabs, onTabClick, onDataClick, showSaturatedDetails, onSearchInput, onSortClick, closeDetails} = this;
 
         return (
             <div className="App">
-                <Header/>
-                <Tabs activeTab={activeTab}
-                      type={type}
-                      mainTabs={mainTabs}
-                      otherTabs={otherTabs}
-                      onTabClick={onTabClick}
-                      visitedTabs={visitedTabs}
-                />
-                <TabData activeTab={activeTab}
-                      data={tabData}
-                      isSorted={isSorted}
-                      details={details}
-                      onDataClick={onDataClick}
-                      saturateDetails={showSaturatedDetails}
-                      onSearchInput={onSearchInput}
-                      onSortClick={onSortClick}/>
+                <div className="content">
+                    <Header/>
+                    <main>
+                        <Tabs activeTab={activeTab}
+                              type={type}
+                              mainTabs={mainTabs}
+                              otherTabs={otherTabs}
+                              onTabClick={onTabClick}
+                              visitedTabs={visitedTabs}
+                        />
+                        <TabData activeTab={activeTab}
+                                 data={tabData}
+                                 isSorted={isSorted}
+                                 details={details}
+                                 onDataClick={onDataClick}
+                                 saturateDetails={showSaturatedDetails}
+                                 onSearchInput={onSearchInput}
+                                 onSortClick={onSortClick}
+                                 closeDetails={closeDetails}
+                        />
+                    </main>
+                </div>
+                <Footer/>
             </div>
         );
     }

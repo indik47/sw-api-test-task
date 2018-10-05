@@ -1,0 +1,93 @@
+/*ENTITIES LIST and utils*/
+
+.entities-container {
+    display: inline-block;
+    width: 20%;
+    padding-left: 3vw;
+    margin-top: 10px;
+}
+
+.entities-container.full-width {
+    display: inline-block;
+    width: 100%;
+}
+
+.entities-container ul.tabData {
+    margin: 0;
+    padding: 7px 0px;
+    position: relative;
+}
+
+.entities-container.full-width ul.tabData {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+ul.tabData li {
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    padding: 10px;
+    margin-right: 15px;
+    background: linear-gradient(to bottom, transparent 50%, var(--complementary-color-transp) );
+    border-radius: 5px;
+}
+
+ul.tabData li:hover {
+    color: var(--main-color);
+}
+
+input#search {
+    flex: 1 1 auto;
+    height: 40px;
+    margin-right: 15px;
+    padding: 12px 20px;
+    font-size: 16px;
+    box-sizing: border-box;
+    border: none;
+    background-color: var(--main-text-color);
+    color: var(--main-color-dark);
+    border-radius: 10px;
+}
+
+button#sort {
+    flex: 1 1 auto;
+    cursor: pointer;
+    height: 40px;
+    padding: 7px 20px;
+    margin-top: 10px;
+    background: var(--main-color);
+    color: var(--main-color-dark);
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: 0.2s ease-in-out;
+}
+
+button#sort:disabled{
+    background:var(--visited-color);
+}
+
+button#sort:disabled:hover{
+    background: var(--visited-color);
+}
+
+button#sort:hover{
+    background: var(--main-color-vivid);
+}
+
+@media screen and (max-width: 640px) {
+    /*if not full width*/
+    .entities-container {
+        display: none;
+    }
+
+    input#search, button#sort  {
+        font-size: 14px;
+    }
+
+    ul.tabData li {
+        font-size: 14px;
+        margin-right: 10px;
+        border-radius: 5px;
+    }
+}

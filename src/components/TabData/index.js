@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Spinner from "../Spinner";
 import PropTypes from 'prop-types';
 import Details from '../Details';
+import classNames from 'classnames'
+import './styles.css';
 
 class TabData extends Component {
     static propTypes = {
@@ -13,6 +15,7 @@ class TabData extends Component {
         saturateDetails: PropTypes.func.isRequired,
         onSearchInput: PropTypes.func.isRequired,
         onSortClick: PropTypes.func.isRequired,
+        closeDetails: PropTypes.func.isRequired,
     };
 
     onEntitiesClick(e) {
@@ -24,41 +27,59 @@ class TabData extends Component {
     }
 
     render() {
-        const {activeTab, data, isSorted, details, onDataClick, saturateDetails, onSearchInput, onSortClick} = this.props;
+        const {activeTab, data, details, onDataClick, saturateDetails, closeDetails} = this.props;
 
-        if (!data) {
+        let entitiesClassName = classNames('entities-container', { [`full-width`]: activeTab !== 'details' });
+        let detailsClassName = classNames('details-container', { [`full-width`]: activeTab === 'details' });
+
+        //spinner while fetching data
+        if (!data) { return <Spinner size={'big'}/> }
+
+        // //entities list
+        // if (!(data instanceof Array)) { return null; }
+
+        const TabDataItems = () => {
+            const { data } = this.props;
+
             return (
-                <Spinner size={'big'}/>
+                <ul className="tabData">
+                    {data.map((item, index) => {
+                        const value = item.name || item.title;
+                        return <li key={index} onClick={(e) => this.onEntitiesClick(e)}>{value}</li>
+                    })}
+                </ul>
             )
-        }
+        };
+        const Utils = () => {
+            const { isSorted, onSearchInput, onSortClick } = this.props;
 
-        //entities list
-        if (data instanceof Array){
             return (
-                <div className="app-outer">
-                    <div className="entities-container">
-                        <div className='utils'>
-                            <input id='search' type="text" placeholder="Search.." onChange={(e) => onSearchInput(e)}/>
-                            <button id='sort' disabled={isSorted} onClick={(e) => onSortClick(e)}>Sort</button>
-                        </div>
-                        <ul className="tabData" onClick={(e) => this.onEntitiesClick(e)}>
-                            {data.map( (item,index) => {
-                                const value = item.name || item.title;
-                                return <li key={index}>{value}</li>
-                            })}
-                        </ul>
-                        </div>
-
-                    <div className="details-container">
-                        {(activeTab === 'details') ?
-                        <Details activeTab={activeTab} details={details} onDataClick={onDataClick} saturateDetails={saturateDetails}/>
-                        : <div/>
-                                }
-                    </div>
-
+                <div className='utils'>
+                    <input id='search' type="text" placeholder="Search.." onChange={(e) => onSearchInput(e)}/>
+                    <button id='sort' disabled={isSorted} onClick={(e) => onSortClick(e)}>Sort</button>
                 </div>
             )
         }
+
+        return (
+            <div className="main-inner">
+                <div className={entitiesClassName}>
+                    <Utils/>
+                    <TabDataItems/>
+                </div>
+
+                {/*if details subtab is active */}
+                {activeTab === 'details' ?
+                    <Details activeTab={activeTab}
+                             details={details}
+                             onDataClick={onDataClick}
+                             saturateDetails={saturateDetails}
+                             closeDetails={closeDetails}
+                             detailsClassName={detailsClassName}/>
+                    : null
+                }
+            </div>
+        )
     }
 }
 
