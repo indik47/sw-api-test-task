@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './styles.css'
 
-class Footer extends Component {
-    render() {
-        return(
-            <footer>
-                    <div className="footer-inner">
-                        <span>Made with</span>
-                        <a href="https://swapi.co/" target="_blank">SW API</a>
-                        <span>by</span>
-                        <a href="#">Denys Oligov</a>
-                    </div>
-            </footer>
-        )
-    }
+function Footer () {
+    return (
+      <footer>
+        <div className="footer-inner">
+          <span>Made with</span>
+          <a href="https://swapi.co/" target="_blank" rel="noopener noreferrer">SW API</a>
+          <span>by</span>
+          <a href="https://www.linkedin.com/in/denysoligov/">Denys Oligov</a>
+        </div>
+      </footer>
+    )
 }
 
 export default Footer;
