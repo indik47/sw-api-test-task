@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import Tab from '../Tab';
+import './styles.css'
 
 class Tabs extends Component {
     static propTypes = {
@@ -24,15 +24,24 @@ class Tabs extends Component {
 
         return (
             <div className="tabs">
-                <ul className="tab-list" onClick={(e) => onTabClick(e)}>
+
+                <ul className="tab-list">
                     {mainTabs.map( (tabName, i) => {
                         return (
-                            <Tab key={tabName} tabName={tabName} type={type} visitedTabs={visitedTabs} icon={icons[i]}/>
+                            <Tab key={tabName}
+                                 tabName={tabName}
+                                 type={type}
+                                 visitedTabs={visitedTabs}
+                                 icon={icons[i]}
+                                 onTabClick={onTabClick}/>
                         );
                     })}
                     {otherTabs.map( tabName => {
                         return (
-                            <Tab key={tabName} tabName={tabName} visitedTabs={visitedTabs}/>
+                            <Tab key={tabName}
+                                 tabName={tabName}
+                                 visitedTabs={visitedTabs}
+                            />
                         );
                     })}
                 </ul>

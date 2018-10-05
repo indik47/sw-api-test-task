@@ -1,0 +1,68 @@
+/*TABS nav*/
+.tabs {
+    padding: 1% 3vw;
+}
+
+.tab-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.tab-list-item {
+    flex: 1 1 auto;
+    border-bottom: 2px solid var(--main-color-vivid);
+    font-family: 'StarJedi', sans-serif;
+    font-size: 18px;
+    color: var(--main-color);
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    border-radius: 10px 10px 0 0;
+    transition: 0.2s ease-in-out;
+}
+
+.tab-list li:last-child{
+    display:none;
+}
+
+.tab-list-item:hover {
+    background: var(--secondary-text-color);
+}
+
+.visited{
+    background-color: var(--visited-color);
+}
+
+.tab-list-active {
+    background-color: var(--main-color);
+    color: var(--main-color-dark);
+}
+
+.tab-list-active:hover {
+    background-color: var(--main-color);
+}
+
+/*MEDIA QUERIS*/
+@media screen and (min-width: 1024px) {
+    .tab-list {
+        justify-content: start;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .tab-list-item {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .tab-list-item {
+        font-size: 14px;
+    }
+
+    .tab-list-item:nth-child(n+4) {
+        border-radius: 0;
+    }
+}
+
